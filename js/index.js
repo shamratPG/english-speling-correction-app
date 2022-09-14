@@ -10,13 +10,17 @@
 
 function search() {
     const word = document.getElementById('word').value;
-    console.log(word);
+    // console.log(word);
     let url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
     fetch(url)
         .then(response => response.json())
         .then(result => {
             // data(result, word)
-            console.log(result[0])
+            const meaning = document.getElementById('meaning')
+            meaning.innerHTML = '';
+            const apiMeaning = result[0].meanings[0].definitions[0].definition;
+            // console.log(apiMeaning);
+            meaning.innerHTML = apiMeaning;
         })
         .catch(() => {
             infoText.innerHTML = `Can't find the meaning of <span>"${word}"</span>. Please, try to search for another word.`;
