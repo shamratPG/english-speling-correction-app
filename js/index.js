@@ -11,8 +11,10 @@ let audio, source, value, audioSrc;
 function data(result, word) {
     if (result.title) {
         infoText.innerHTML = `Can't find the meaning of <span>"${word}"</span>. Please, try to search for another word.`;
+        infoText.classList.add("text-danger");
     } else {
         wrapper.classList.add("active");
+        infoText.classList.remove("text-danger");
         let meanings = result[0].meanings[0];
         let findExample = result[0].meanings[0].definitions;
         let definitions = result[0].meanings[0].definitions[0];
@@ -58,11 +60,15 @@ function data(result, word) {
             synonyms.parentElement.parentElement.style.paddingBottom = "17px";
             synonyms.parentElement.parentElement.style.marginBottom = "14px";
             synonyms.innerHTML = "";
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < meanings.synonyms.length; i++) {
                 let tag = `<span onclick="search('${meanings.synonyms[i]}')">${meanings.synonyms[i]},</span>`;
-                tag = i == 4 ? tag = `<span onclick="search('${meanings.synonyms[i]}')">${meanings.synonyms[4]}</span>` : tag;
                 synonyms.insertAdjacentHTML("beforeend", tag);
             }
+            // for (let i = 0; i < 5; i++) {
+            //     let tag = `<span onclick="search('${meanings.synonyms[i]}')">${meanings.synonyms[i]},</span>`;
+            //     tag = i == 4 ? tag = `<span onclick="search('${meanings.synonyms[i]}')">${meanings.synonyms[4]}</span>` : tag;
+            //     synonyms.insertAdjacentHTML("beforeend", tag);
+            // }
         }
         if (meanings.antonyms[0] == undefined) {
             antonyms.parentElement.style.display = "none";
@@ -76,9 +82,8 @@ function data(result, word) {
             antonyms.parentElement.parentElement.style.paddingBottom = "17px";
             antonyms.parentElement.parentElement.style.marginBottom = "14px";
             antonyms.innerHTML = "";
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < meanings.antonyms.length; i++) {
                 let tag = `<span onclick="search('${meanings.antonyms[i]}')">${meanings.antonyms[i]},</span>`;
-                tag = i == 4 ? tag = `<span onclick="search('${meanings.antonyms[i]}')">${meanings.antonyms[4]}</span>` : tag;
                 antonyms.insertAdjacentHTML("beforeend", tag);
             }
         }
@@ -105,6 +110,7 @@ function fetchApi(word) {
 
 searchInput.addEventListener("keyup", e => {
     let word = e.target.value.replace(/\s+/g, ' ');
+    infoText.classList.remove("text-danger");
     if (e.key == "Enter" && word) {
         fetchApi(word);
     }
