@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <!-- Internal Stylesheet  -->
+    <!-- <link rel="stylesheet" href="styles/sentence.css"> -->
     <link rel="stylesheet" href="styles/style.css">
 
     <!-- CDN Link for Icons -->
@@ -34,10 +35,10 @@
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav ">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Word Meaning</a>
+                            <a class="nav-link" href="./index.html">Word Meaning</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./sentence.html">Sentence Box</a>
+                            <a class="nav-link" href="#">Sentence Box</a>
                         </li>
                     </ul>
                 </div>
@@ -46,57 +47,27 @@
     </header>
 
     <main class="container-fluid mt-5">
-        <div class="wrapper container-sm">
-            <header class="text-primary">Word Meaning</header>
-            <div class="search">
-                <input type="text" placeholder="Search a word" required spellcheck="false">
-                <i class="fas fa-search"></i>
-                <span class="material-icons">close</span>
-            </div>
-            <p class="info-text">Type any existing word and press enter to get meaning, example, synonyms, etc.
-            </p>
-            <ul>
-                <li class="word">
-                    <div class="details">
-                        <p>__</p>
-                        <span>_ _</span>
-                    </div>
-                    <i class="fas fa-volume-up">
-                        <audio>
-                            <source type="audio">
-                        </audio>
-                    </i>
-                </li>
-                <div class="content">
-                    <li class="meaning">
-                        <div class="details">
-                            <p>Meaning</p>
-                            <span>___</span>
-                        </div>
-                    </li>
-                    <li class="example">
-                        <div class="details">
-                            <p>Example</p>
-                            <span>___</span>
-                        </div>
-                    </li>
-                    <li class="synonyms">
-                        <div class="details">
-                            <p>Synonyms</p>
-                            <div class="list"></div>
-                        </div>
-                    </li>
-                    <li class="antonyms">
-                        <div class="details">
-                            <p>Antonyms</p>
-                            <div class="list"></div>
-                        </div>
-                    </li>
-                </div>
-            </ul>
-        </div>
-        <hr class="border border-primary">
+        <div class="wrapper container-sm text-center">
+            <h2 class="text-primary mb-4">Sentence Correction</h2>
+            <small class="">
+                Check your English text for grammar, spelling, and punctuation errors
+                with real time character & word counter.
+            </small>
 
+            <textarea id="textarea" class="textarea mt-4" placeholder="Start Writing..." maxlength="150"></textarea>
+
+            <button class="btn btn-primary my-3" onclick="copyText()">Copy Text</button>
+
+            <div class="counter-container">
+                <p>Total characters: <span id="total-conter"> 0</span></p>
+                <p>
+                    Total Words:
+                    <span class="words-counter" id="words-counter">0</span>
+                </p>
+            </div>
+        </div>
+
+        <hr class="border border-primary">
     </main>
 
     <footer class="d-flex justify-content-center align-items-center">
