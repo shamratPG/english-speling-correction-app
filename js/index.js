@@ -4,6 +4,7 @@ const wrapper = document.querySelector(".wrapper"),
     infoText = wrapper.querySelector(".info-text"),
     synonyms = wrapper.querySelector(".synonyms .list"),
     antonyms = wrapper.querySelector(".antonyms .list"),
+    example = wrapper.querySelector(".example span"),
     removeIcon = wrapper.querySelector(".search span");
 let audio, source, value, audioSrc;
 
@@ -13,23 +14,49 @@ function data(result, word) {
     } else {
         wrapper.classList.add("active");
         let meanings = result[0].meanings[0];
+        let findExample = result[0].meanings[0].definitions;
         let definitions = result[0].meanings[0].definitions[0];
         let phontetics = `${result[0].meanings[0].partOfSpeech}  /${result[0].phonetics[0].text}/`;
+
         document.querySelector(".word p").innerText = result[0].word;
         document.querySelector(".word span").innerText = phontetics;
         document.querySelector(".meaning span").innerText = definitions.definition;
-        document.querySelector(".example span").innerText = definitions.example;
         console.log(result);
+        let exampleSrc = findExample.find(e => e.hasOwnProperty('example'));
+        console.log(exampleSrc)
+
 
         source = result[0].phonetics;
         audioSrc = findValue(source, 'audio');
 
         audio = new Audio(audioSrc);
 
+
+        if (!exampleSrc) {
+            example.parentElement.style.display = "none";
+            example.parentElement.parentElement.style.borderBottom = "none";
+            example.parentElement.parentElement.style.paddingBottom = "0px";
+            example.parentElement.parentElement.style.marginBottom = "0px";
+        } else {
+            example.parentElement.style.display = "block";
+            example.parentElement.parentElement.style.borderBottom = "1px solid #D9D9D9";
+            example.parentElement.parentElement.style.paddingBottom = "17px";
+            example.parentElement.parentElement.style.marginBottom = "14px";
+            example.innerHTML = exampleSrc.example;
+        }
+
+
         if (meanings.synonyms[0] == undefined) {
             synonyms.parentElement.style.display = "none";
+            synonyms.parentElement.parentElement.style.borderBottom = "none";
+            synonyms.parentElement.parentElement.style.paddingBottom = "0px";
+            synonyms.parentElement.parentElement.style.marginBottom = "0px";
         } else {
             synonyms.parentElement.style.display = "block";
+
+            synonyms.parentElement.parentElement.style.borderBottom = "1px solid #D9D9D9";
+            synonyms.parentElement.parentElement.style.paddingBottom = "17px";
+            synonyms.parentElement.parentElement.style.marginBottom = "14px";
             synonyms.innerHTML = "";
             for (let i = 0; i < 5; i++) {
                 let tag = `<span onclick="search('${meanings.synonyms[i]}')">${meanings.synonyms[i]},</span>`;
@@ -39,8 +66,15 @@ function data(result, word) {
         }
         if (meanings.antonyms[0] == undefined) {
             antonyms.parentElement.style.display = "none";
+            antonyms.parentElement.parentElement.style.borderBottom = "none";
+            antonyms.parentElement.parentElement.style.paddingBottom = "0px";
+            antonyms.parentElement.parentElement.style.marginBottom = "0px";
         } else {
             antonyms.parentElement.style.display = "block";
+
+            antonyms.parentElement.parentElement.style.borderBottom = "1px solid #D9D9D9";
+            antonyms.parentElement.parentElement.style.paddingBottom = "17px";
+            antonyms.parentElement.parentElement.style.marginBottom = "14px";
             antonyms.innerHTML = "";
             for (let i = 0; i < 5; i++) {
                 let tag = `<span onclick="search('${meanings.antonyms[i]}')">${meanings.antonyms[i]},</span>`;
@@ -79,7 +113,6 @@ searchInput.addEventListener("keyup", e => {
 volume.addEventListener("click", () => {
     volume.style.color = "#4D59FB";
     audio.play();
-    // console.log(audioSrc);
     setTimeout(() => {
         volume.style.color = "#999";
     }, 800);
