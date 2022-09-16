@@ -64,11 +64,7 @@ function data(result, word) {
                 let tag = `<span onclick="search('${meanings.synonyms[i]}')">${meanings.synonyms[i]},</span>`;
                 synonyms.insertAdjacentHTML("beforeend", tag);
             }
-            // for (let i = 0; i < 5; i++) {
-            //     let tag = `<span onclick="search('${meanings.synonyms[i]}')">${meanings.synonyms[i]},</span>`;
-            //     tag = i == 4 ? tag = `<span onclick="search('${meanings.synonyms[i]}')">${meanings.synonyms[4]}</span>` : tag;
-            //     synonyms.insertAdjacentHTML("beforeend", tag);
-            // }
+
         }
         if (meanings.antonyms[0] == undefined) {
             antonyms.parentElement.style.display = "none";
@@ -131,3 +127,16 @@ removeIcon.addEventListener("click", () => {
     infoText.style.color = "#9A9A9A";
     infoText.innerHTML = "Type any existing word and press enter to get meaning, example, synonyms, etc.";
 });
+
+
+function findValue(source, valueName) {
+    value = source.find(e => e[valueName].length > 0);
+    return value[valueName];
+
+}
+function findExample(source, valueName) {
+    console.log(source, valueName)
+    value = source.find(e => e.hasOwnProperty(valueName));
+    return value[valueName];
+
+}
