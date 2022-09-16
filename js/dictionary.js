@@ -12,6 +12,7 @@ function data(result, word) {
     if (result.title) {
         infoText.innerHTML = `Can't find the meaning of <span>"${word}"</span>. Please, try to search for another word.`;
         infoText.classList.add("text-danger");
+        infoText.classList.add("fs-5");
     } else {
         wrapper.classList.add("active");
         infoText.classList.remove("text-danger");
@@ -106,8 +107,9 @@ function fetchApi(word) {
 
 searchInput.addEventListener("keyup", e => {
     let word = e.target.value.replace(/\s+/g, ' ');
-    infoText.classList.remove("text-danger");
     if (e.key == "Enter" && word) {
+        infoText.classList.remove("text-danger");
+        infoText.classList.remove("fs-5");
         fetchApi(word);
     }
 });
@@ -135,7 +137,7 @@ function findValue(source, valueName) {
 
 }
 function findExample(source, valueName) {
-    console.log(source, valueName)
+    // console.log(source, valueName)
     value = source.find(e => e.hasOwnProperty(valueName));
     return value[valueName];
 
