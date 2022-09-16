@@ -4,7 +4,7 @@ const wrapper = document.querySelector(".wrapper"),
     infoText = wrapper.querySelector(".info-text"),
     synonyms = wrapper.querySelector(".synonyms .list"),
     removeIcon = wrapper.querySelector(".search span");
-let audio;
+let audio, source, value, audioSrc;
 
 function data(result, word) {
     if (result.title) {
@@ -17,7 +17,13 @@ function data(result, word) {
         document.querySelector(".word span").innerText = phontetics;
         document.querySelector(".meaning span").innerText = definitions.definition;
         document.querySelector(".example span").innerText = definitions.example;
-        audio = new Audio(result[0].phonetics[0].audio);
+
+        source = result[0].phonetics;
+        value = source.find(e => e.audio.length > 0);
+        audioSrc = value.audio;
+        // source = value;
+
+        audio = new Audio(audioSrc);
 
         if (definitions.synonyms[0] == undefined) {
             synonyms.parentElement.style.display = "none";
@@ -58,6 +64,7 @@ searchInput.addEventListener("keyup", e => {
 volume.addEventListener("click", () => {
     volume.style.color = "#4D59FB";
     audio.play();
+    // console.log(audioSrc);
     setTimeout(() => {
         volume.style.color = "#999";
     }, 800);
