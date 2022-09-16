@@ -148,8 +148,10 @@
  }
 
  ul .content {
-     max-height: 215px;
+     max-height: 230px;
      overflow-y: auto;
+     padding: 15px 0;
+
  }
 
  ul .content::-webkit-scrollbar {
@@ -172,12 +174,14 @@
      color: #7E7E7E;
  }
 
- .content .synonyms .list {
+ .content .synonyms .list,
+ .content .antonyms .list {
      display: flex;
      flex-wrap: wrap;
  }
 
- .content .synonyms span {
+ .content .synonyms span,
+ .content .antonyms span {
      cursor: pointer;
      margin-right: 5px;
      text-decoration: underline;
